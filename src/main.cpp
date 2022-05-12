@@ -6,8 +6,8 @@
 #include <ESPAsyncWebServer.h>
 
 
-const char* ssid = "IZZI-2124";
-const char* password =  "Antigatos7";
+const char* ssid = "FIME-POSGRADO";
+const char* password =  "pereira2018";
   
 
 AsyncWebServer server(80);
