@@ -6,13 +6,11 @@
 #include <ESPAsyncWebServer.h>
 #include <string>
 
-
 //const char* ssid = "FIME-POSGRADO";
 //const char* password =  "pereira2018";
 const char* ssid = "IZZI-2124";
 const char* password =  "Antigatos7";
 
-  
 Servo actuator[5] ; 
 int pines[5] = {27, 25, 2, 26, 0}; // M5, M7, M8, M6, ECO ULTRA
 
@@ -68,6 +66,8 @@ void State::setServo2(int angle){
 } ; 
 
 State state ; 
+
+
 
 void setup() {
 
@@ -148,6 +148,4 @@ void setup() {
   server.begin();
 }
 
-void loop() {
-  
-}
+void loop() {}
