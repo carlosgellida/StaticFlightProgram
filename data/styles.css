@@ -1,45 +1,41 @@
-body{
-    display: flex;
-    background: linear-gradient(90deg, rgba(30,200,200,1) 0%, rgba(50,200,100,1) 35%, rgba(0,250,0,1) 100%);
-    justify-content: center;
-  }
+#mainContainer{
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+#app{
+  display: flex; 
+  justify-content: center; 
+}
+
+.bottonZone {
+  padding-left: 10px;
+  padding-right: 10px; 
+  margin-bottom: 10px; 
+  display: flex; 
   
-  #drum-machine{
-    display: flex; 
-    flex-direction: column;
-     align-items: center;
-    height: 100vh; 
-    width: 97vw;
-    margin-top: -1vh;  
-  }
-  
-  #display{
-    display: flex; 
-    flex-direction: column; 
-    align-items : center;
-    justify-content: center; 
-    color: Red; 
-    font-size: 40px; 
-    width: 600px;  
-    margin-top: 5vh; 
-  }
-  
-  #battery{
-    margin-top: -5vh; 
-    width: 60vh; 
-    background: transparent ; 
-  }
-  
-  .ButtonsGrid{
-    display: grid; 
-    width: 400px; 
-    height: 300px; 
-    grid-template-columns: auto auto auto;
-  }
-  
-  @for $i from 0 to 9 {
-    #button#{$i}{
-      width: 100%; 
-      height: 60px; 
-    }
-  }
+}
+
+.output{
+  margin-left: 10px; 
+  color: blue; 
+  font-size: 30px; 
+  width: 60px; 
+  border-style: solid; 
+  border-color: black; 
+  display: flex; 
+  justify-content: center; 
+}
+
+.bars {
+  width: 200px; 
+  height: 18px;
+  outline: none; 
+}
+
+.actuator{
+  font-size: 20px; 
+  font-weight: bold; 
+}

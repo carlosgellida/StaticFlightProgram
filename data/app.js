@@ -1,64 +1,88 @@
-const sounds = {
-  Q: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3', 
-  W: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3', 
-  E: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3',
-  A: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3',
-  S: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3',
-  D: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3',
-  Z: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3',
-  X: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3',
-  C: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
-}
-
-class App extends React.Component {
+class App extends React.Component{
   constructor(props){
-    super(props); 
+    super(props) ; 
     this.state = {
-      tecla: '',
+      motor1: 0, 
+      motor2: 0, 
+      servo1: 0, 
+      servo2: 0, 
+      servo3: 0
     }
-    this.handleClick = this.handleClick.bind(this); 
+    this.updateMotor1 = this.updateMotor1.bind(this) ; 
+    this.updateMotor2 = this.updateMotor2.bind(this) ;
+    this.updateServo1 = this.updateServo1.bind(this) ;
+    this.sendData = this.sendData.bind(this); 
   }
   
-  handleClick(e, letter, i){
-    const currentSound = document.getElementById(letter)
-    currentSound.currentTime = 0;
-    currentSound.play(); 
+  updateMotor1(e){
     this.setState({
-      tecla: letter
-    })
-    
-  }
-  onKeyPressed(e){
-    const currentSound = document.getElementById(e.key.toUpperCase());
-    currentSound.currentTime = 0;
-    currentSound.play(); 
-    this.setState({
-      tecla: e.key.toUpperCase()
+      motor1: e.target.value,
     })
   }
+  
+   updateMotor2(e){
+    this.setState({
+      motor2: e.target.value,
+    })
+   }
+     
+    updateServo1(e){
+    this.setState({
+      servo1: e.target.value,
+    }, ()=>{this.sendData()})
+    }
+  
+    sendData(){
+      fetch('/senData?servo1='+this.state.servo1)
+      //.then(response => response.json())
+      //.then(data => {
+      //  document.getElementById('message').innerHTML = JSON.stringify(data);
+      //})
+    }
+  
   render(){
-    
     return(
-      <div id="drum-machine" onKeyDown={(e) => this.onKeyPressed(e)}
-    tabIndex="0"> 
-        <div id="display">
-          <p>Welcome to my Drum Machine</p>
-          <img src='https://www.stars-music.fr/medias/alesis/strike-pro-hd-3-98918.png' id='battery'/>
-          {this.state.tecla}</div>
-        <ButtonsKeys handleClick={this.handleClick}/>
+      <div id="mainContainer"> 
+          <h1> Remote control of motors and servomotors </h1>
+        
+        <p className="actuator">Motor 1: </p>
+        <div id="bottonZoneMotor1" className="bottonZone">
+          <input className="bars" type="range"
+          value={this.state.motor1}
+          min="0"
+          max="255"
+          step="1"
+          onChange={this.updateMotor1}
+          />
+          <div className="output">{this.state.motor1}</div>
+        </div>
+        
+        <p className="actuator">Motor 2: </p>
+        <div id="bottonZoneMotor2" className="bottonZone" >
+          <input className="bars" type="range"
+          value={this.state.motor2}
+          min="0"
+          max="255"
+          step="1"
+          onChange={this.updateMotor2}
+          />
+          <div className="output">{this.state.motor2}</div>
+        </div>
+        
+        <p className="actuator">Servo 1: </p>
+        <div id="bottonZoneServo1" className="bottonZone" >
+          <input className="bars" type="range"
+          value={this.state.servo1}
+          min="0"
+          max="180"
+          step="1"
+          onChange={this.updateServo1}
+          />
+          <div className="output">{this.state.servo1}</div>
+        </div>
       </div>
-    );
+    ) ; 
   }
-}
-
-function ButtonsKeys(props){
-  const buttonsKeys = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"]; 
-   return( <div className="ButtonsGrid">
-       {buttonsKeys.map((letter, i)=>{return(
-        <button className="drum-pad" id={"button"+i} onClick={(e) => props.handleClick(e, letter, i)}>{letter}<audio
-   src={sounds[letter]} className="clip" id={letter}></audio></button>
-         ); } ) 
-        } </div> ); 
 }
 
 ReactDOM.render(<App />, document.getElementById('app')); 
