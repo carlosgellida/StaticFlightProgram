@@ -86,13 +86,13 @@ void setup() {
         Serial.print("Param value: ");
         Serial.println(p->value()); 
         Serial.println("------");
-        char * servo1Input ; 
+        /*char * servo1Input ; 
         i<p->value()
         for(int i=0; i<p->value().length(); i++){
 
         }
         strcpy(servo1Input, p->value())  ; 
-        servoPin2.write(atoi(servo1Input));
+        servoPin2.write(atoi(servo1Input));*/
         //servoPin2.write(atol(servo1Input));
     }
     request->send(200, "text/plain", "message received");
