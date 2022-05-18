@@ -25,6 +25,7 @@ class State {
     void setServo0(int) ; 
     void setServo1(int) ; 
     void setServo2(int) ;  
+    void getCompactState(char *) ; 
 } ;
 
 State::State(){
@@ -65,8 +66,19 @@ void State::setServo2(int angle){
   actuator[4].write(angle) ;
 } ; 
 
+void State::getCompactState(char * compactState){
+  compactState[0] = this->motor0 ; 
+  compactState[1] = this->motor1 ; 
+  compactState[2] = this->servo0 ; 
+  compactState[3] = this->servo1 ; 
+  compactState[4] = this->servo2 ; 
+  compactState[5] = '\0' ; 
+}
+
 State state ; 
 
+char compactState[6]; 
+String scompactState ; 
 
 
 void setup() {
@@ -112,6 +124,12 @@ void setup() {
 
   server.on("/hello", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "text/plain", "Hello World");
+  });
+
+  server.on("/getData", HTTP_GET, [](AsyncWebServerRequest *request){
+    state.getCompactState(compactState) ; 
+    scompactState = compactState ; 
+    request->send(200, "text/plain", scompactState);
   });
 
   server.on("/senData", HTTP_GET, [](AsyncWebServerRequest *request){
